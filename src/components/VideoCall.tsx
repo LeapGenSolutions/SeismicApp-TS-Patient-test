@@ -7,6 +7,7 @@ import {
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import MyUILayout from './MyUILayout';
+import { BACKEND_URL, GETSTREAM_APIKEY } from '../constants';
 
 type VideoCallProps = {
   userName: string;
@@ -16,7 +17,7 @@ type VideoCallProps = {
 
 const getToken = async (userId: string): Promise<string | null> => {
   try {
-    const response = await axios.post('https://seismic-backend-04272025-bjbxatgnadguabg9.centralus-01.azurewebsites.net/get-token', { userId });
+    const response = await axios.post(`${BACKEND_URL}/get-token`, { userId });
     return response.data.token;
   } catch (error) {
     console.error('Error fetching token:', error);
@@ -25,7 +26,7 @@ const getToken = async (userId: string): Promise<string | null> => {
 };
 
 const VideoCall = ({ userName, meetingId, role }: VideoCallProps) => {
-  const apiKey = '72499ykcfb3z';
+  const apiKey = GETSTREAM_APIKEY;
   const userId = userName;
   const callId = meetingId;
 
